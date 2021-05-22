@@ -1,5 +1,5 @@
 from __future__ import annotations
-import datetime as dt
+import datetime
 
 
 class Calculator:
@@ -14,7 +14,7 @@ class Calculator:
         return self.records
 
     def get_today_stats(self):
-        now = dt.datetime.now()
+        now = datetime.datetime.now()
         today_date = now.date()
         wasted = 0
         for item in self.records:
@@ -23,9 +23,9 @@ class Calculator:
         return wasted
 
     def get_week_stats(self):
-        now = dt.datetime.now()
+        now = datetime.datetime.now()
         today_date = now.date()
-        week_ago_date = today_date - dt.timedelta(days=7)
+        week_ago_date = today_date - datetime.timedelta(days=7)
         week_wasted = 0
         for item in self.records:
             if week_ago_date <= item.date <= today_date:
@@ -38,11 +38,11 @@ class Record:
         self.amount = amount
         self.comment = comment
         if date is None:
-            now = dt.datetime.now()
+            now = datetime.datetime.now()
             self.date = now.date()
         else:
             date_format = '%d.%m.%Y'
-            moment = dt.datetime.strptime(date, date_format)
+            moment = datetime.datetime.strptime(date, date_format)
             moment = moment.date()
             self.date = moment
 
@@ -85,4 +85,3 @@ class CaloriesCalculator(Calculator):
             return f'Сегодня можно съесть что-нибудь ещё, но с общей калорийностью не более {difference} кКал'
         if Calculator.get_today_stats(self) >= self.limit:
             return 'Хватит есть!'
-          
